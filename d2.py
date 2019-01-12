@@ -1,3 +1,5 @@
+from itertools import combinations
+
 with open("d2_data") as f:
     data = f.readlines()
 
@@ -20,43 +22,31 @@ def part1():
     assert not has_count("bawaqc", 3), "found a triple when it shouldnt"
 
 
+def different_letters(a, b):
+    for b1_letter, b2_letter in zip(a, b):
+        if b1_letter != b2_letter:
+            yield b1_letter
+
+
 def compare(box1, box2):
-    if box1 == box2:
-        return False
-
-    count_miss = 0
-    for c1, c2 in zip(box1, box2):
-        if c1 != c2:
-            count_miss += 1
-        if count_miss > 1:
-            return False
-    else:
-        return True
+    different_letter_count = sum(1 for _ in different_letters(box1, box2))
+    return different_letter_count == 1
 
 
-def get_remaining_letters(box1_code, box2_code):
-    saved_letters = []
-    for b1_letter, b2_letter in zip(box1_code, box2_code):
+def common_letters(a, b):
+    for b1_letter, b2_letter in zip(a, b):
         if b1_letter == b2_letter:
-            saved_letters.append(b1_letter)
-    final = "".join(saved_letters)
-    return final
+            yield b1_letter
 
-
-from itertools import combinations
 
 for box1_code, box2_code in combinations(data, 2):
     if compare(box1_code, box2_code):
-        print(get_remaining_letters(box1_code, box2_code))
+        print("".join(common_letters(box1_code, box2_code)))
         break
-
-        # print("".join(q for q, r in zip(a, b) if q == r))
-        # break
-
 
 if __name__ == "__main__":
     # assert not compare("aa", "aa"), "same should be false"
     # assert compare("ab", "aa"), "same should be true"
     # assert not compare("bb", "aa"), "same should be false"
 
-    print(get_remaining_letters("abc", "aqc"))
+    # print(get_remaining_letters("abc", "aqc"))
