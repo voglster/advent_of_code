@@ -28,19 +28,19 @@ def different_letters(a, b):
             yield b1_letter
 
 
-def compare(box1, box2):
-    different_letter_count = sum(1 for _ in different_letters(box1, box2))
-    return different_letter_count == 1
-
-
 def common_letters(a, b):
     for b1_letter, b2_letter in zip(a, b):
         if b1_letter == b2_letter:
             yield b1_letter
 
 
+def has_1_character_different(box1, box2):
+    different_letter_count = sum(1 for _ in different_letters(box1, box2))
+    return different_letter_count == 1
+
+
 for box1_code, box2_code in combinations(data, 2):
-    if compare(box1_code, box2_code):
+    if has_1_character_different(box1_code, box2_code):
         print("".join(common_letters(box1_code, box2_code)))
         break
 
@@ -49,4 +49,5 @@ if __name__ == "__main__":
     # assert compare("ab", "aa"), "same should be true"
     # assert not compare("bb", "aa"), "same should be false"
 
+    pass
     # print(get_remaining_letters("abc", "aqc"))
