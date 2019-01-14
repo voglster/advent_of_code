@@ -1,11 +1,12 @@
 from itertools import combinations
 import re
 from common import load_day_data
+from parse import parse
 
 data = load_day_data(3)
 
 
-def parse_input_line2(a_single_input_line):
+def parse_input_line(a_single_input_line):
     """#1 @ 493,113: 12x14"""
     plan_number, other = a_single_input_line.split("@")
     plan_number = int(plan_number.strip()[1:])
@@ -15,6 +16,11 @@ def parse_input_line2(a_single_input_line):
     w, h = wh.strip().split("x")
     w, h = int(w), int(h)
     return plan_number, x, y, w, h
+
+
+def parse_input_line2(a_single_input_line):
+    """#1 @ 493,113: 12x14"""
+    return parse("#{:d} @ {:d},{:d}: {:d}x{:d}", a_single_input_line).fixed
 
 
 def get_points(x, y, w, h):
