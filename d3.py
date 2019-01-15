@@ -1,5 +1,4 @@
 from itertools import combinations
-import re
 from common import load_day_data
 from parse import parse
 
@@ -94,4 +93,3 @@ if __name__ == "__main__":
     # print(a.overlapping_points(b))
 
     print_best_one()
-
